@@ -1,0 +1,11 @@
+# Configure this OAuth Server
+server:
+  port: ${PORT:8080}   # HTTP (Tomcat) port
+# Spring properties
+spring:
+  application:
+    name: pima-inference  # Service registers under this name
+  thymeleaf:
+    cache: false             # Allow Thymeleaf templates to be reloaded at runtime
+    prefix: classpath:/templates/    # Trailing / mandatory
+    # Template location for this application only

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 ,minimum-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="author" content="Edwards Mukasa" />
+    <meta name="theme-color" content="#000000">
+    <!-- Page title -->
+    <!--<link rel='shortcut icon' type='image/x-icon' href='/resources/images/favicon.ico' />-->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,300&display=swap" rel="stylesheet">
+    <title>Inference :: DJL</title>
+    <meta name="description" content="TensorFlow model inference with DJL">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!--<link href="/main.css" rel="stylesheet">-->
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="/app.js"></script>
+    <style th:inline="text">
+        *{
+            font-family: 'Source Sans Pro', sans-serif;
+            margin:0;
+        }
+    </style>
+</head>
+<body>
+
+
+<noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
+    enabled. Please enable
+    Javascript and reload this page!</h2></noscript>
+
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">DJL Inference</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link active btn btn-outline-success" id="connect" aria-current="page" href="#">Connect</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"></a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link  btn btn-outline-danger" href="#" id="disconnect" tabindex="-1" aria-disabled="false">Disconnect</a>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header>
+
+
+<main>
+
+
+    <!-- prediction messaging
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+
+    <div class="container marketing" style="margin-top: 70px;">
+
+        <!-- Three columns of text below the carousel -->
+
+        <!-- START THE FEATURETTES -->
+
+        <div class="row featurette">
+            <div class="col-md-12">
+                <h2 class="featurette-heading">Enter Medical Predictor variables. <span class="text-muted"></span></h2>
+
+                <form class="row g-4 needs-validation" novalidate>
+                    <div class="col-md-3">
+                        <label for="pregnancies" class="form-label">Number of Pregnancies</label>
+                        <input type="number" step="any" min="0"  placeholder="6" class="form-control" id="pregnancies" value="" required>
+                        <div class="valid-feedback">
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="glucose" class="form-label">Glucose Level</label>
+                        <input type="number" step="any" min="0" placeholder="148" class="form-control" id="glucose" value="" required>
+                        <div class="valid-feedback">
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="bloodPressure" class="form-label">Blood Pressure </label>
+                        <input type="number" step="any" min="0" placeholder="72" class="form-control" id="bloodPressure" value="" required>
+                        <div class="valid-feedback">
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="skinThickness" class="form-label">Skin Thickness</label>
+                        <input type="number" step="any" min="0" placeholder="35" class="form-control" id="skinThickness" value="" required>
+                        <div class="valid-feedback">
+
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-3">
+                        <label for="insulin" class="form-label">Insulin</label>
+                        <input type="number" step="any" min="0" placeholder="0" class="form-control" id="insulin" value="" required>
+                        <div class="valid-feedback">
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="bmi" class="form-label">BMI</label>
+                        <input type="number" step="any" min="0" placeholder="33.6" class="form-control" id="bmi" value="" required>
+                        <div class="valid-feedback">
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="diabetesPedigreeFunction" class="form-label">Diabetes Pedigree Function</label>
+                        <input type="number" step="any" min="0" placeholder="0.627" class="form-control" id="diabetesPedigreeFunction" value="" required>
+                        <div class="valid-feedback">
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="age" class="form-label">Age</label>
+                        <input type="number" step="any" min="0" placeholder="50" class="form-control" id="age" value="" required>
+                        <div class="valid-feedback">
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-12">
+                        <button class="btn btn-primary" type="submit">Submit form</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-12">
+                <h2 class="featurette-heading">Pima Predictions. <span class="text-muted"></span></h2>
+                <p class="lead">Medical predictor variables and predicted outcomes.</p>
+
+                <table class="table table-hover" id="inference">
+                    <thead>
+                    <tr>
+                       <!-- <th scope="col">Id</th> -->
+                        <th scope="col">Pregnancies</th>
+                        <th scope="col">Glucose</th>
+                        <th scope="col">Blood Pressure</th>
+                        <th scope="col">Skin Thickness</th>
+                        <th scope="col">Insulin</th>
+                        <th scope="col">BMI</th>
+                        <th scope="col">Diabetes Pedigree Function</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Outcome</th>
+                    </tr>
+                    </thead>
+                    <tbody id="predictions">
+
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <!-- /END THE FEATURETTES -->
+
+    </div><!-- /.container -->
+
+
+    <!-- FOOTER -->
+    <footer class="container">
+        <p class="float-end"><a href="#">Back to top</a></p>
+        <p>© 2021 Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+    </footer>
+</main>
+
+<!--
+<div id="main-content" class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="connect">Inference Server:</label>
+                    <button id="connect" class="btn primary" type="submit">Connect</button>
+                    <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">Disconnect
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table id="atTransactionResponses" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Pima Predictions </th>
+                </tr>
+                </thead>
+                <tbody id="atTransactions">
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+-->
+<!-- App scripts -->
+
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+            }
+            else{
+                //document.getElementById("my-custom-spinner").style.display="block";
+                //document.getElementById("my-custom-button").disabled = true;
+                sendPrediction();
+            }
+            form.classList.add('was-validated')
+        }, false)
+        })
+    })()
+    /*]]>*/
+  </script>
+</body>
+</html>
