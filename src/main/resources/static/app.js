@@ -65,5 +65,27 @@ $(function () {
     });
     $( "#connect" ).click(function() { connect(); });
     $( "#disconnect" ).click(function() { disconnect(); });
+    $( "#upload" ).click(function(){
+        //alert("Upload button clicked!");
+        var fd = new FormData();
+        var files = $('#file')[0].files[0];
+        fd.append('file', files);
+        $.ajax({
+            url: '/api/v1/prediction/upload',
+            type: 'post',
+            data: fd,
+            contentType: false,
+            processData: false,
+            success: function(response){
+                if(response.success === true){
+                   alert('file uploaded');
+                }
+                else{
+                    alert('file not uploaded');
+                }
+            },
+        });
+
+    });
     //$( "#send" ).click(function() { sendPrediction(); });
 });

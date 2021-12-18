@@ -56,10 +56,32 @@
                     <li class="nav-item">
                         <a class="nav-link  btn btn-outline-danger" href="#" id="disconnect" tabindex="-1" aria-disabled="false">Disconnect</a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"></a>
+                    </li>
+
+                    <li class="nav-item">
+                        <button type="button" class="btn btn-outline-primary" id="predictor_modal" tabindex="-2"  data-bs-toggle="modal" data-bs-target="#predictorsModal">Predictors Form</button>
+                    </li>
+                    <!--
+                    <li class="nav-item">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Predictors Form
+                        </button>
+                    </li>
+                    -->
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                <form class="d-flex" novalidate id="upfrm" enctype="multipart/form-data">
+                    <input type="file" class="form-control" id="file" name="file" aria-label="Batch Upload" required>
+                    <div class="invalid-feedback">Choose the predictions CSV file</div>
+                    <button class="btn btn-outline-success" type="button" id="upload" href="#">Upload</button>
                 </form>
             </div>
         </div>
@@ -75,6 +97,7 @@
     <!-- Wrap the rest of the page in another container to center all the content. -->
 
     <div class="container marketing" style="margin-top: 70px;">
+
 
         <!-- Three columns of text below the carousel -->
 
@@ -200,6 +223,26 @@
         <p class="float-end"><a href="#">Back to top</a></p>
         <p>© 2021 Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
     </footer>
+
+    <!-- Modal -->
+    <div class="modal fade" id="predictorsModal" tabindex="-4" aria-labelledby="predictorsModalLabel" aria-hidden="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="predictorsModalLabel">Enter Medical Predictor variables.</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </main>
 
 <!--
