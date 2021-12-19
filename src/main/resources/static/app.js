@@ -78,14 +78,15 @@ $(function () {
             processData: false,
             success: function(response){
                 if(response.success === true){
-                   alert('file uploaded');
+                   //alert('file uploaded');
                 }
                 else{
-                    alert('file not uploaded');
+                    //alert('file not uploaded');
                 }
             },
         });
 
     });
     //$( "#send" ).click(function() { sendPrediction(); });
+     //$( "#predictor_modal" ).click(function() { alert("Modal Button!"); });
 });
