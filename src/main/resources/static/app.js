@@ -31,6 +31,12 @@ function connect() {
                  JSON.parse(prediction.body).outcome
              );
         });
+        //enable predictor_modal, disconnect and upload buttons
+        $("#disconnect").prop('disabled', false);
+        $("#upload").prop('disabled', false);
+        $("#predictor_modal").prop('disabled', false);
+        //disable connect button
+        $("#connect").prop('disabled', true);
     });
 }
 
@@ -40,6 +46,13 @@ function disconnect() {
     }
     setConnected(false);
     console.log("Disconnected");
+
+    //disable predictor_modal, disconnect and upload buttons
+    $("#disconnect").prop('disabled', true);
+    $("#upload").prop('disabled', true);
+    $("#predictor_modal").prop('disabled', true);
+    //enable connect button
+    $("#connect").prop('disabled', false);
 }
 
 function sendPrediction() {

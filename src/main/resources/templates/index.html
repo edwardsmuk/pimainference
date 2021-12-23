@@ -47,7 +47,7 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                        <a class="nav-link active btn btn-outline-success" id="connect" aria-current="page" href="#">Connect</a>
+                        <button class="btn btn-success" type="button" id="connect" >Connect</button>
                     </li>
 
                     <li class="nav-item">
@@ -55,7 +55,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link  btn btn-outline-danger" href="#" id="disconnect" tabindex="-1" aria-disabled="false">Disconnect</a>
+                        <button class="btn btn-outline-danger" type="button" id="disconnect" disabled>Disconnect</button>
                     </li>
 
                     <li class="nav-item">
@@ -69,21 +69,14 @@
                     </li>
 
                     <li class="nav-item">
-                        <button type="button" class="btn btn-outline-primary" id="predictor_modal" tabindex="-2"  data-bs-toggle="modal" data-bs-target="#predictorsModal">Predictors Form</button>
+                        <button type="button" class="btn btn-outline-primary" id="predictor_modal" tabindex="-2"  data-bs-toggle="modal" data-bs-target="#predictorsModal" disabled>Predictors Form</button>
 
                     </li>
-                    <!--
-                    <li class="nav-item">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Predictors Form
-                        </button>
-                    </li>
-                    -->
                 </ul>
                 <form class="d-flex" novalidate id="upfrm" enctype="multipart/form-data">
                     <input type="file" class="form-control" id="file" name="file" aria-label="Batch Upload" required>
                     <div class="invalid-feedback">Choose the predictions CSV file</div>
-                    <button class="btn btn-outline-success" type="button" id="upload" href="#">Upload</button>
+                    <button class="btn btn-outline-primary" type="button" id="upload" href="#" disabled>Upload</button>
                 </form>
             </div>
         </div>
