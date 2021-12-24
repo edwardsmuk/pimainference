@@ -69,7 +69,14 @@ function sendPrediction() {
 }
 
 function showPrediction(pregnancies,glucose,bloodPressure,skinThickness,insulin,bmi,diabetesPedigreeFunction,age,outcome) {
-    $("#predictions").append("<tr><td>" + pregnancies+ "</td><td>" + glucose+ "</td><td>" + bloodPressure+ "</td><td>" + skinThickness+ "</td><td>" + insulin+ "</td><td>" + bmi+ "</td><td>" + diabetesPedigreeFunction+ "</td><td>" + age+ "</td><td>" +outcome+ "</td></tr>");
+    if(outcome === 0.0)
+    {
+        $("#predictions").append("<tr class='table-success'><td>" + pregnancies+ "</td><td>" + glucose+ "</td><td>" + bloodPressure+ "</td><td>" + skinThickness+ "</td><td>" + insulin+ "</td><td>" + bmi+ "</td><td>" + diabetesPedigreeFunction+ "</td><td>" + age+ "</td><td>" +outcome+ "</td></tr>");
+    }
+    else
+    {
+        $("#predictions").append("<tr class='table-danger'><td>" + pregnancies+ "</td><td>" + glucose+ "</td><td>" + bloodPressure+ "</td><td>" + skinThickness+ "</td><td>" + insulin+ "</td><td>" + bmi+ "</td><td>" + diabetesPedigreeFunction+ "</td><td>" + age+ "</td><td>" +outcome+ "</td></tr>");
+    }
 }
 
 $(function () {
