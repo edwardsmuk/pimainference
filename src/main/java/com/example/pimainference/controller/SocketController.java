@@ -22,9 +22,8 @@ public class SocketController {
 
     @MessageMapping("/prediction/socket")
     public ResponseEntity<?> predictionSocket(@RequestBody Prediction prediction) throws Exception{
-        logger.info("*********** predictionSocket controller:*************");
+        logger.info("Prediction Socket endpoint called");
         pimaInferenceService.predictionSocket(prediction);
-
         return ResponseEntity.ok().body(new ApiResponse(true, "Submitted prediction request "+prediction.toString()));
     }
 }

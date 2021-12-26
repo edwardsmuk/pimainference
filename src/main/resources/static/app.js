@@ -69,7 +69,7 @@ function sendPrediction() {
 }
 
 function showPrediction(pregnancies,glucose,bloodPressure,skinThickness,insulin,bmi,diabetesPedigreeFunction,age,outcome) {
-    if(outcome === 0.0)
+    if(outcome < 0.5)
     {
         $("#predictions").append("<tr class='table-success'><td>" + pregnancies+ "</td><td>" + glucose+ "</td><td>" + bloodPressure+ "</td><td>" + skinThickness+ "</td><td>" + insulin+ "</td><td>" + bmi+ "</td><td>" + diabetesPedigreeFunction+ "</td><td>" + age+ "</td><td>" +outcome+ "</td></tr>");
     }
@@ -91,22 +91,22 @@ $(function () {
         var files = $('#file')[0].files[0];
         fd.append('file', files);
         $.ajax({
-            url: '/api/v1/prediction/upload',
+            url: '/api/v1/prediction/socket/batch',
             type: 'post',
             data: fd,
             contentType: false,
             processData: false,
             success: function(response){
                 if(response.success === true){
+                    //TODO
                    //alert('file uploaded');
                 }
                 else{
+                    //TODO
                     //alert('file not uploaded');
                 }
             },
         });
 
     });
-    //$( "#send" ).click(function() { sendPrediction(); });
-     //$( "#predictor_modal" ).click(function() { alert("Modal Button!"); });
 });
