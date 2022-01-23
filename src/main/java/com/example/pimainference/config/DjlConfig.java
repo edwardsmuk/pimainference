@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.beans.factory.annotation.Value;
 
 @Configuration
-public class DjlConfig {
+public class    DjlConfig {
 
     //Custom Translator
     public static final class PimaInferenceTranslator implements Translator<Prediction, float[][]> {
@@ -33,6 +33,7 @@ public class DjlConfig {
         public NDList processInput(TranslatorContext ctx, Prediction input) {
 
             NDManager manager = ctx.getNDManager();
+            //convert Prediction object variables to NDArray
             NDArray array = manager.create(new float[]{
                     input.getPregnancies(),
                     input.getGlucose(),
@@ -59,6 +60,7 @@ public class DjlConfig {
                 logger.info("Predicted Outcome : "+ i + " " + list.singletonOrThrow().get(i));
                 result.add(list.singletonOrThrow().get(i));
             }
+            //convert prediction result to a float[][] i.e [[0.67966]]
             return result.stream().map(NDArray::toFloatArray).toArray(float[][]::new);
         }
 
