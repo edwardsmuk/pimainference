@@ -31,6 +31,12 @@ function connect() {
                  JSON.parse(prediction.body).outcome
              );
         });
+        //enable predictor_modal, disconnect and upload buttons
+        $("#disconnect").prop('disabled', false);
+        $("#upload").prop('disabled', false);
+        $("#predictor_modal").prop('disabled', false);
+        //disable connect button
+        $("#connect").prop('disabled', true);
     });
 }
 
@@ -40,6 +46,13 @@ function disconnect() {
     }
     setConnected(false);
     console.log("Disconnected");
+
+    //disable predictor_modal, disconnect and upload buttons
+    $("#disconnect").prop('disabled', true);
+    $("#upload").prop('disabled', true);
+    $("#predictor_modal").prop('disabled', true);
+    //enable connect button
+    $("#connect").prop('disabled', false);
 }
 
 function sendPrediction() {
@@ -56,7 +69,14 @@ function sendPrediction() {
 }
 
 function showPrediction(pregnancies,glucose,bloodPressure,skinThickness,insulin,bmi,diabetesPedigreeFunction,age,outcome) {
-    $("#predictions").append("<tr><td>" + pregnancies+ "</td><td>" + glucose+ "</td><td>" + bloodPressure+ "</td><td>" + skinThickness+ "</td><td>" + insulin+ "</td><td>" + bmi+ "</td><td>" + diabetesPedigreeFunction+ "</td><td>" + age+ "</td><td>" +outcome+ "</td></tr>");
+    if(outcome < 0.5)
+    {
+        $("#predictions").append("<tr class='table-success'><td>" + pregnancies+ "</td><td>" + glucose+ "</td><td>" + bloodPressure+ "</td><td>" + skinThickness+ "</td><td>" + insulin+ "</td><td>" + bmi+ "</td><td>" + diabetesPedigreeFunction+ "</td><td>" + age+ "</td><td>" +outcome+ "</td></tr>");
+    }
+    else
+    {
+        $("#predictions").append("<tr class='table-danger'><td>" + pregnancies+ "</td><td>" + glucose+ "</td><td>" + bloodPressure+ "</td><td>" + skinThickness+ "</td><td>" + insulin+ "</td><td>" + bmi+ "</td><td>" + diabetesPedigreeFunction+ "</td><td>" + age+ "</td><td>" +outcome+ "</td></tr>");
+    }
 }
 
 $(function () {
@@ -65,5 +85,28 @@ $(function () {
     });
     $( "#connect" ).click(function() { connect(); });
     $( "#disconnect" ).click(function() { disconnect(); });
-    //$( "#send" ).click(function() { sendPrediction(); });
+    $( "#upload" ).click(function(){
+        //alert("Upload button clicked!");
+        var fd = new FormData();
+        var files = $('#file')[0].files[0];
+        fd.append('file', files);
+        $.ajax({
+            url: '/api/v1/prediction/socket/batch',
+            type: 'post',
+            data: fd,
+            contentType: false,
+            processData: false,
+            success: function(response){
+                if(response.success === true){
+                    //TODO
+                   //alert('file uploaded');
+                }
+                else{
+                    //TODO
+                    //alert('file not uploaded');
+                }
+            },
+        });
+
+    });
 });

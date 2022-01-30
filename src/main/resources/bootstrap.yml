@@ -9,3 +9,8 @@ spring:
     cache: false             # Allow Thymeleaf templates to be reloaded at runtime
     prefix: classpath:/templates/    # Trailing / mandatory
     # Template location for this application only
+
+  servlet:
+    multipart:
+      max-file-size: 2MB
+      max-request-size: 2MB
