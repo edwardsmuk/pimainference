@@ -1,4 +1,4 @@
-# Configure this OAuth Server
+# Configuring this DJL Inference Server
 server:
   port: ${PORT:8080}   # HTTP (Tomcat) port
 # Spring properties
@@ -11,6 +11,6 @@ spring:
     # Template location for this application only
 
   servlet:
-    multipart:
+    multipart:              #Settings for file upload
       max-file-size: 2MB
       max-request-size: 2MB
